@@ -6,7 +6,7 @@ The program can be run by compiling it into a jar file and running commands like
 
 ### Recording
 ```
-java -jar OscP5MessageRecorder.jar record PORT OUTPUTFILE [CHANNELS]
+java -jar OscP5MessageRecorder.jar record PORT OUTPUTFILE CHANNEL [OTHERCHANNELS]
 java -jar OscP5MessageRecorder.jar record 5000 test.xml /muse/elements/blink
 java -jar OscP5MessageRecorder.jar record 4999 test2.xml /muse/elements/blink /muse/elements/jaw_clench
 ```

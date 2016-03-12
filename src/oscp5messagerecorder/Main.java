@@ -101,7 +101,7 @@ public class Main {
         System.out.println("------");
         System.out.println("");
         System.out.println("Recording:");
-        System.out.println("\tjava -jar OscP5MessageRecorder.jar record PORT OUTPUTFILE [CHANNELS]");
+        System.out.println("\tjava -jar OscP5MessageRecorder.jar record PORT OUTPUTFILE CHANNEL [OTHERCHANNELS]");
         System.out.println("");
         System.out.println("Playing:");
         System.out.println("\tjava -jar OscP5MessageRecorder.jar play PORT INPUTFILE");
