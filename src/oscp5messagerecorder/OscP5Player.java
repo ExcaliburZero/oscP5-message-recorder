@@ -29,7 +29,10 @@ import java.util.ArrayList;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import netP5.NetAddress;
 import org.xml.sax.SAXException;
+import oscP5.OscP5;
+import oscP5.OscProperties;
 
 /**
  * The <code>OscP5Player</code> class is used to send previously recorded oscP5
@@ -43,6 +46,8 @@ public class OscP5Player {
     private final File inputFile;
 
     private ArrayList<String[]> messages;
+    private final OscP5 server;
+    private final NetAddress reciever;
 
     /**
      * Initializes a <code>OscP5Player</code> object with the given port and
@@ -55,12 +60,12 @@ public class OscP5Player {
         this.port = port;
         this.inputFile = inputFile;
         this.messages = null;
+        this.server = new OscP5(this, OscProperties.UDP);
+        this.reciever = new NetAddress("0.0.0.0", this.port);
         this.importMessages();
-        for (String[] message : this.messages) {
-            System.out.println(String.format("%s : %s : %s", message[0], message[1], message[2]));
-        }
+        this.playMessages();
     }
-    
+
     /**
      * Imports the messages from the input file.
      */
@@ -70,10 +75,41 @@ public class OscP5Player {
             SAXParser saxParser = saxParserFactory.newSAXParser();
             MessageImportHandler messageImportHandler = new MessageImportHandler();
             saxParser.parse(this.inputFile, messageImportHandler);
-            
+
             this.messages = messageImportHandler.getMessages();
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Plays the messages that were imported from the input file.
+     */
+    private void playMessages() {
+        // Calculate the time in between each message
+        int[] times = new int[this.messages.size()];
+        times[0] = 0;
+        for (int i = 1; i < this.messages.size(); i++) {
+            times[i] = Integer.parseInt(this.messages.get(i)[1]) - Integer.parseInt(this.messages.get(i - 1)[1]);
+        }
+
+        // Play each of the messages at the correct times
+        for (int i = 0; i < this.messages.size(); i++) {
+            try {
+                Thread.sleep(times[i]);
+                this.sendMessage(this.messages.get(i));
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
+    /**
+     * Sends the given message through the oscP5 server.
+     *
+     * @param message The message to be sent.
+     */
+    private void sendMessage(String[] message) {
+        server.send(this.reciever, message[0], Integer.parseInt(message[2]));
     }
 }
