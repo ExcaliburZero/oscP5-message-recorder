@@ -29,7 +29,7 @@ import java.util.ArrayList;
 /**
  * The <code>Main</code> class is used to run the program.
  *
- * @author Christopher Wells <cwellsny@nycap.rr.com>
+ * @author Christopher Wells {@literal <cwellsny@nycap.rr.com>}
  */
 public class Main {
 

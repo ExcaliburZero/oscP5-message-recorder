@@ -38,7 +38,7 @@ import oscP5.OscP5;
  * The <code>OscP5Recorder</code> class is used to record oscP5 messages and
  * store them in xml files.
  *
- * @author Christopher Wells <cwellsny@nycap.rr.com>
+ * @author Christopher Wells {@literal <cwellsny@nycap.rr.com>}
  */
 public class OscP5Recorder implements OscEventListener {
 

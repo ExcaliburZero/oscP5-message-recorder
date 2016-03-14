@@ -32,7 +32,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * The <code>MessageImportHandler</code> class is used to extract recorded oscP5
  * messages from xml files.
  *
- * @author Christopher Wells <cwellsny@nycap.rr.com>
+ * @author Christopher Wells {@literal <cwellsny@nycap.rr.com>}
  */
 public class MessageImportHandler extends DefaultHandler {
 

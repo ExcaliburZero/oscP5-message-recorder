@@ -38,7 +38,7 @@ import oscP5.OscProperties;
  * The <code>OscP5Player</code> class is used to send previously recorded oscP5
  * messages to a set port.
  *
- * @author Christopher Wells <cwellsny@nycap.rr.com>
+ * @author Christopher Wells {@literal <cwellsny@nycap.rr.com>}
  */
 public class OscP5Player {
 
