@@ -43,7 +43,7 @@ public class MessageImportHandler extends DefaultHandler {
      * of messages.
      */
     public MessageImportHandler() {
-        this.messages = new ArrayList();
+        this.messages = new ArrayList<>();
     }
 
     /**
