@@ -15,4 +15,7 @@ jar {
 	manifest {
 		attributes "Main-Class": "oscp5messagerecorder.Main"
 	}
+
+	// Include classes from oscP5 lib
+	from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
 }
