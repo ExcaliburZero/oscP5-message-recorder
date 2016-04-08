@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oscp5messages>
+<message channel="/muse/elements/blink" time="129" value="0" />
+<message channel="/muse/elements/jaw_clench" time="132" value="0" />
+<message channel="/muse/elements/blink" time="259" value="0" />
+<message channel="/muse/elements/jaw_clench" time="259" value="0" />
+</oscp5messages>

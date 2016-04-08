@@ -4,8 +4,14 @@ plugins {
 
 sourceSets {
 	main.java.srcDir "src"
+	test.java.srcDir "test"
+}
+
+repositories {
+	mavenCentral()
 }
 
 dependencies {
 	compile fileTree(dir: "lib", include: ["*.jar"])
+	testCompile "junit:junit:4.12"
 }
