@@ -96,11 +96,24 @@ public class OscP5Recorder implements OscEventListener {
         fileContents += "</oscp5messages>\n";
 
         // Write to the file
+        this.writeToFile(fileContents, this.outputFile);
+    }
+
+    /**
+     * Writes the given String to the given file.
+     *
+     * @param string The String to write to the file.
+     * @param file The file to write the String to.
+     * @return <code>true</code> if the write succedes, or <code>false</code>
+     * if it fails.
+     */
+    private boolean writeToFile(String string, File file) {
         BufferedWriter out = null;
         try {
-            FileWriter fileWriter = new FileWriter(this.outputFile);
+            FileWriter fileWriter = new FileWriter(file);
             out = new BufferedWriter(fileWriter);
-            out.write(fileContents);
+            out.write(string);
+            return true;
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
         } finally {
@@ -112,6 +125,7 @@ public class OscP5Recorder implements OscEventListener {
                 }
             }
         }
+        return false;
     }
 
     /**
