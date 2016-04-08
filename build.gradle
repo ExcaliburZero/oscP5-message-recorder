@@ -9,3 +9,10 @@ sourceSets {
 dependencies {
 	compile fileTree(dir: "lib", include: ["*.jar"])
 }
+
+jar {
+	baseName = "OscP5MessageRecorder"
+	manifest {
+		attributes "Main-Class": "oscp5messagerecorder.Main"
+	}
+}
