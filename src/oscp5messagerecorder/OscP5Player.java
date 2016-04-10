@@ -110,6 +110,34 @@ public class OscP5Player {
      * @param message The message to be sent.
      */
     private void sendMessage(String[] message) {
-        server.send(this.reciever, message[0], Integer.parseInt(message[2]));
+        String channel = message[0];
+        String value = message[2];
+
+        // Get value type
+        String valueType = "";
+        try {
+            Integer.parseInt(value);
+            valueType = "int";
+        } catch (NumberFormatException e) {
+            try {
+                Float.parseFloat(value);
+                valueType = "float";
+            } catch (NumberFormatException ex) {
+                valueType = "String";
+            }
+        }
+
+        // Send the message with the correct value type
+        switch (valueType) {
+            case "int":
+                server.send(this.reciever, channel, Integer.parseInt(value));
+                break;
+            case "float":
+                server.send(this.reciever, channel, Float.parseFloat(value));
+                break;
+            case "String":
+                server.send(this.reciever, channel, value);
+                break;
+        }
     }
 }
