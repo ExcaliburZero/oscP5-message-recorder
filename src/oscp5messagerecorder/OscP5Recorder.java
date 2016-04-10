@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.time.LocalTime;
 import static java.time.temporal.ChronoUnit.MILLIS;
 import java.util.ArrayList;
+import oscP5.OscArgument;
 import oscP5.OscEventListener;
 import oscP5.OscMessage;
 import oscP5.OscP5;
@@ -137,7 +138,11 @@ public class OscP5Recorder implements OscEventListener {
     public void oscEvent(OscMessage om) {
         for (String channel : this.channels) {
             if (om.checkAddress(channel)) {
-                this.messages.add(new String[]{channel, Long.toString(this.startTime.until(LocalTime.now(), MILLIS)), Integer.toString(om.get(0).intValue())});
+                String time = Long.toString(this.startTime.until(LocalTime.now(), MILLIS));
+                String value = this.getOscArgValue(om.get(0));
+
+                // Record the message
+                this.messages.add(new String[]{channel, time, value});
                 if (this.recordCount == this.recordInterval) {
                     this.recordCount = 0;
                     this.saveMessages();
@@ -146,5 +151,28 @@ public class OscP5Recorder implements OscEventListener {
                 }
             }
         }
+    }
+
+    /**
+     * Returns the value of the given OscArguement as a String.
+     *
+     * @param arg The OscArgument to get the value of.
+     * @return The value of the given OscArgument.
+     */
+    public String getOscArgValue(OscArgument arg) {
+        String value = null;
+
+        // Get the value based on its type
+        try {
+            value = Integer.toString(arg.intValue());
+        } catch (ClassCastException e) {
+            try {
+                value = Float.toString(arg.floatValue());
+            } catch (ClassCastException ex) {
+                value = arg.stringValue();
+            }
+        }
+
+        return value;
     }
 }
