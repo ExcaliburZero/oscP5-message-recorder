@@ -1,13 +1,20 @@
 plugins {
 	id "java"
+	id "jacoco"
 }
 
 sourceSets {
 	main.java.srcDir "src"
+	test.java.srcDir "test"
+}
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {
 	compile fileTree(dir: "lib", include: ["*.jar"])
+	testCompile "junit:junit:4.12", "pl.pragmatists:JUnitParams:1.0.4"
 }
 
 jar {
@@ -18,4 +25,11 @@ jar {
 
 	// Include classes from oscP5 lib
 	from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+}
+
+jacocoTestReport {
+	reports {
+		xml.enabled = true
+		html.enabled = true
+	}
 }
